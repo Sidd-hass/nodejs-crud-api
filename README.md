@@ -31,7 +31,7 @@ A full-featured Express.js REST API for user authentication and task management 
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/Sidd-hass/nodejs-crud-api.git
+git clone https://github.com/Sidd-hass/nodejs-crud-api.git ###  Take pull from master branch if you have any doubt please use this link git clone -b master https://github.com/Sidd-hass/nodejs-crud-api.git . 
 cd nodejs-crud-api
 
 ### 2. setup the enviorment
