@@ -40,9 +40,10 @@ In the root directory, create a .env file:
 
 enviorment variable
 
-PORT=3000
-MONGO_URI=mongodb://localhost:27017/taskdb
+# MONGO_URI=mongodb://localhost:27018/jwt-auth
+MONGO_URI=mongodb://mongo:27017/taskdb
 JWT_SECRET=f2131040143e3b7c4dbe10b61ac9804a10fcdc7602b7edfdfeae8a69266645d1
+PORT=3000
 
 
 ### 3. Install node dependecy
