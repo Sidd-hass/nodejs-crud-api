@@ -53,7 +53,6 @@ docker compose up -d --build
 
 ### 4.now test the api using the two methods first using javascript test.js script run this command in terminal or use bat file
 node test.js 
-.\test.bat 
 
 📩 Make sure to use a fresh email every time for testing registration.
 
@@ -69,3 +68,63 @@ Sample Output:
 📄 Tasks: [ ... ]
 ✏️ Task updated: { ... }
 🗑️ Task deleted
+
+
+🧪 Manual API Testing with Thunder Client / Postman
+You can test this API locally using Thunder Client (VS Code) or Postman.
+
+🔐 1. Register User
+POST http://localhost/register
+
+Request Body:
+{
+  "email": "user@example.com",
+  "password": "password123"
+}
+🔑 2. Login User
+POST http://localhost/login
+
+Request Body:
+{
+  "email": "user@example.com",
+  "password": "password123"
+}
+Response Example:
+{
+  "token": "your_jwt_token_here"
+}
+Save the token to use in the following protected routes.
+
+📝 3. Create Task
+POST http://localhost/tasks
+
+Headers:
+Authorization: Bearer <your_jwt_token>
+Request Body:
+{
+  "title": "Learn Docker",
+  "description": "Study containerization"
+}
+📋 4. Get All Tasks
+GET http://localhost/tasks
+
+Headers:
+Authorization: Bearer <your_jwt_token>
+🛠️ 5. Update a Task
+PUT http://localhost/tasks/:id
+
+Headers:
+Authorization: Bearer <your_jwt_token>
+Request Body:
+{
+  "title": "Learn Docker Deeply",
+  "description": "Focus on volumes and networks"
+}
+Replace :id with the actual task ID you received from the GET request.
+
+🗑️ 6. Delete a Task
+DELETE http://localhost/tasks/:id
+
+Headers:
+Authorization: Bearer <your_jwt_token>
+Replace :id with the actual task ID to delete it.
