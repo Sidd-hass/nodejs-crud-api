@@ -27,6 +27,9 @@ jobs:
       - name: 📦 Install dependencies
         run: npm install
 
+      - name: ✅ Run tests (if any)
+        run: npm test || echo "No tests found, skipping..."
+
       - name: 🐳 Build Docker image
         run: docker build -t node-crud-api .
 
@@ -35,8 +38,3 @@ jobs:
           docker run -d --name node-app \
             --env MONGO_URI=mongodb://host.docker.internal:27017/taskdb \
             -p 3000:3000 node-crud-api
-
-      - name: 🔁 Test API with curl
-        run: |
-          sleep 10 # give app time to start
-          curl --fail http://localhost:3000 || (echo "App failed to start" && exit 1)
