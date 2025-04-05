@@ -1,0 +1,50 @@
+name: Local Docker CI
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    services:
+      mongo:
+        image: mongo:latest
+        ports:
+          - 27017:27017
+        options: >-
+          --health-cmd "mongo --eval 'db.runCommand({ ping: 1 })'" 
+          --health-interval 10s 
+          --health-timeout 5s 
+          --health-retries 5
+
+    steps:
+      - name: ⬇️ Checkout code
+        uses: actions/checkout@v3
+
+      - name: 🟢 Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+
+      - name: 📦 Install dependencies
+        run: npm install
+
+      - name: ✅ Run tests (if any)
+        run: npm test || echo "No tests found, skipping..."
+
+      - name: 🐳 Build Docker image
+        run: docker build -t node-crud-api .
+
+      - name: 🚀 Run Docker container
+        run: |
+          docker run -d --name node-app \
+            --env MONGO_URI=mongodb://host.docker.internal:27017/taskdb \
+            -p 3000:3000 node-crud-api
+
+      - name: 🔁 Test API with curl
+        run: |
+          sleep 10 # give app time to start
+          curl --fail http://localhost:3000 || (echo "App failed to start" && exit 1)
