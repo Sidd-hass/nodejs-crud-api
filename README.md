@@ -47,7 +47,7 @@ PORT=3000
 
 
 ### 3. Install node dependecy
-npm install
+npm install ### to test the api is working or not for that i have created the test.js file after running docker compose you can test it using the node test.js file
 
 ### 3. run the application using the docker
 docker compose up -d --build
